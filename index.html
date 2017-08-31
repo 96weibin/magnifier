@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>放大镜</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .phone{
+            width: 428px;
+            height: 428px;
+            background: url(phone.jpg);
+            border: 1px solid pink;
+            margin: 100px ;
+        }
+        
+        .box{
+            width: 200px;
+            height: 200px;
+            background: skyblue;
+            opacity: 0.2;
+            position: absolute;
+            display: none;
+        }
+        .show{
+            width: 430px;
+            height: 430px;
+            position: absolute;
+            top: 100px;
+            left: 650px;
+            /* background:pink; */
+            background: url(phone.jpg);
+            background-size: 860px,860px;
+            /* background-position-x:  */
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <div class="box"></div>
+    </div>
+    <div class="show" style="background-position:100px 100px"></div>
+    <script>
+        var oPhone = document.querySelector('.phone');
+        var oShow = document.querySelector('.show');
+        var oBox = document.querySelector('.box');
+        
+        var oP = new Person(oPhone, oBox, oShow);
+
+
+        function Person(main, shadow, show){
+            main.onmousemove = function (event) {
+                var x = event.offsetX;
+                var y = event.offsetY;
+                shadow.style.display = 'block';
+                show.style.display = 'block';
+                if(event.clientX < 430 && event.clientX  > 200){
+                    shadow.style.left = event.clientX - 100 + 'px';
+                }else if(event.clientX <= 200){
+                    box.style.left = '100px';
+                }else{
+                    shadow.style.left = '330px';
+                }
+                if(event.clientY < 430 && event.clientY > 200){
+                    shadow.style.top = event.clientY - 100 + 'px';
+                }else if(event.clientY <= 200){
+                    shadow.style.top = '100px';
+                }else{
+                    shadow.style.top = '330px';
+                }
+                ofl = 100 - shadow.offsetLeft;
+                oft = 100 - shadow.offsetTop;
+                // console.log(ofl+"-----"+oft);
+                show.style.backgroundPosition = ofl + "px " + oft + "px";
+            }
+            main.onmouseout = function() {
+                shadow.style.display = 'none';
+                show.style.display = 'none';
+            }
+        }
+        
+    </script>
+</body>
+</html>
