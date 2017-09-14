@@ -43,40 +43,44 @@
     </div>
     <div class="show" style="background-position:100px 100px"></div>
     <script>
+        
         var oPhone = document.querySelector('.phone');
         var oShow = document.querySelector('.show');
         var oBox = document.querySelector('.box');
         
         var oP = new Person(oPhone, oBox, oShow);
 
-
         function Person(main, shadow, show){
-            main.onmousemove = function (event) {
+            this.main = main;
+            this.shadow = shadow;
+            this.show = show;
+            var self = this;
+            this.main.onmousemove = function (event) {
                 var x = event.offsetX;
                 var y = event.offsetY;
-                shadow.style.display = 'block';
-                show.style.display = 'block';
+                self.shadow.style.display = 'block';
+                self.show.style.display = 'block';
                 if(event.clientX < 430 && event.clientX  > 200){
-                    shadow.style.left = event.clientX - 100 + 'px';
+                    self.shadow.style.left = event.clientX - 100 + 'px';
                 }else if(event.clientX <= 200){
-                    shadow.style.left = '100px';
+                    self.shadow.style.left = '100px';
                 }else{
-                    shadow.style.left = '330px';
+                    self.shadow.style.left = '330px';
                 }
                 if(event.clientY < 430 && event.clientY > 200){
-                    shadow.style.top = event.clientY - 100 + 'px';
+                    self.shadow.style.top = event.clientY - 100 + 'px';
                 }else if(event.clientY <= 200){
-                    shadow.style.top = '100px';
+                    self.shadow.style.top = '100px';
                 }else{
-                    shadow.style.top = '330px';
+                    self.shadow.style.top = '330px';
                 }
-                ofl = main.offsetLeft - shadow.offsetLeft;
-                oft = main.offsetTop - shadow.offsetTop;
-                show.style.backgroundPosition = ofl * 2 + "px " + oft * 2 + "px";
+                var ofl = self.main.offsetLeft - self.shadow.offsetLeft;
+                var oft = self.main.offsetTop - self.shadow.offsetTop;
+                self.show.style.backgroundPosition = ofl * 2 + "px " + oft * 2 + "px";
             }
-            main.onmouseout = function() {
-                shadow.style.display = 'none';
-                show.style.display = 'none';
+            this.main.onmouseout = function() {
+                self.shadow.style.display = 'none';
+                self.show.style.display = 'none';
             }
         }
         
